@@ -6,6 +6,7 @@ import Category from "./pages/Category";
 import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import Filter from "./pages/Filter";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (

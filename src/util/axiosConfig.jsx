@@ -1,8 +1,8 @@
 import axios from "axios";
+import { BASE_API_URL } from "./apiEndpoints";
 
 const axiosConfig = axios.create({
-  baseURL:
-    "https://springboot-money-manager-be-production.up.railway.app/api/v1.0",
+  baseURL: BASE_API_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -13,7 +13,7 @@ const axiosConfig = axios.create({
 const excludeEndpoints = [
   "/auth/login",
   "/auth/register",
-  "auth/activate",
+  "/auth/activate",
   "/status",
   "/health",
 ];
@@ -65,3 +65,5 @@ axiosConfig.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+export default axiosConfig;
