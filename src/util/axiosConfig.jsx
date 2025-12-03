@@ -9,7 +9,7 @@ const axiosConfig = axios.create({
   },
 });
 
-// List of endpoints to exclude from adding the Authorization header
+//list of endpoints that do not required authorization header
 const excludeEndpoints = [
   "/auth/login",
   "/auth/register",
@@ -18,11 +18,11 @@ const excludeEndpoints = [
   "/health",
 ];
 
-// Request Interceptor
+//request interceptor
 axiosConfig.interceptors.request.use(
   (config) => {
     const shouldSkipToken = excludeEndpoints.some((endpoint) => {
-      config.url?.includes(endpoint);
+      return config.url?.includes(endpoint);
     });
 
     if (!shouldSkipToken) {
@@ -30,16 +30,15 @@ axiosConfig.interceptors.request.use(
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
-
-      return config;
     }
+    return config;
   },
   (error) => {
     return Promise.reject(error);
   },
 );
 
-// Response Interceptor
+//response interceptor
 axiosConfig.interceptors.response.use(
   (response) => {
     return response;
@@ -49,18 +48,10 @@ axiosConfig.interceptors.response.use(
       if (error.response.status === 401) {
         window.location.href = "/login";
       } else if (error.response.status === 500) {
-        console.error(
-          "Server Error. Please try again later",
-          error.response.data,
-        );
-      } else if (
-        error.code === "ECONNABORTED" ||
-        error.message === "Network Error"
-      ) {
-        console.error(
-          "Request timed out or Network Error. Please check your connection.",
-        );
+        console.error("Server error. Please try again later");
       }
+    } else if (error.code === "ECONNABORTED") {
+      console.error("Request timeout. Please try again.");
     }
     return Promise.reject(error);
   },

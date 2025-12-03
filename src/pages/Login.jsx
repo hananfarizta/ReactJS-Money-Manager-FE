@@ -65,6 +65,7 @@ const Login = () => {
     <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
       {/* Background Image with Blur */}
       <img
+        id="background-image"
         src={assets.login_bg}
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover filter blur-sm"
@@ -72,16 +73,20 @@ const Login = () => {
 
       <div className="relative z-10 w-full max-w-lg px-6">
         <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-lg shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
-          <h3 className="text-2xl font-semibold text-black text-center mb-2">
+          <h3
+            id="title"
+            className="text-2xl font-semibold text-black text-center mb-2"
+          >
             Welcome Back
           </h3>
 
-          <p className="text-sm text-slate-700 text-center mb-8">
+          <p id="sub-title" className="text-sm text-slate-700 text-center mb-8">
             Please enter your details to login.
           </p>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               label="Email Address"
@@ -90,6 +95,7 @@ const Login = () => {
             />
 
             <Input
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               label="Password"
@@ -98,12 +104,16 @@ const Login = () => {
             />
 
             {error && (
-              <p className="text-red-800 text-sm text-center bg-red-50 p-2 rounded">
+              <p
+                id="error-message"
+                className="text-red-800 text-sm text-center bg-red-50 p-2 rounded"
+              >
                 {error}
               </p>
             )}
 
             <button
+              id="login-button"
               disabled={isLoading}
               className={`btn-primary w-full py-3 text-lg font-medium flex items-center justify-center gap-2 ${
                 isLoading ? "opacity-60 cursor-not-allowed" : ""
@@ -123,6 +133,7 @@ const Login = () => {
             <p className="text-sm text-slate-800 text-center mt-6">
               Don't have an account?
               <Link
+                id="go-to-signup"
                 to="/signup"
                 className="font-medium text-primary underline hover:text-primary-dark transition-colors"
               >
